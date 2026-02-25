@@ -1,36 +1,38 @@
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.Scanner;
 
-public class PalindromeCheckerApp {
+class PalindromeCheckerApp {
+
+    // Recursive method to check palindrome
+    public static boolean isPalindrome(String str, int start, int end) {
+
+        // Base Condition 1: If pointers cross or meet
+        if (start >= end) {
+            return true;
+        }
+
+        // If characters don't match
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
+        }
+
+        // Recursive call for smaller substring
+        return isPalindrome(str, start + 1, end - 1);
+    }
 
     public static void main(String[] args) {
 
-        String input = "madam";   // String to check
+        Scanner sc = new Scanner(System.in);
 
-        Deque<Character> deque = new LinkedList<>();
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
 
-        for (int i = 0; i < input.length(); i++) {
-            deque.addLast(input.charAt(i));
-        }
+        boolean result = isPalindrome(input, 0, input.length() - 1);
 
-        boolean isPalindrome = true;
+        if (result)
+            System.out.println("The string is a Palindrome.");
+        else
+            System.out.println("The string is NOT a Palindrome.");
 
-        while (deque.size() > 1) {
-
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-
-            if (front != rear) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        // Print result
-        if (isPalindrome) {
-            System.out.println(input + " is a Palindrome.");
-        } else {
-            System.out.println(input + " is NOT a Palindrome.");
-        }
+        sc.close();
     }
 }
